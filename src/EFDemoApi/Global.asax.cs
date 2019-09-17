@@ -1,5 +1,7 @@
 using Autofac;
 using Autofac.Integration.WebApi;
+using EFDemo.Data;
+using System.Data.Entity;
 using System.Reflection;
 using System.Web.Http;
 
@@ -22,9 +24,7 @@ namespace EFDemoApi
             //Register your Web API controllers.  
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
-            //builder.RegisterType<DBCustomerEntities>()
-            //       .As<DbContext>()
-            //       .InstancePerRequest();
+            builder.RegisterType<MoviesDbContext>().AsSelf().InstancePerRequest();
 
             builder.RegisterType<MyService>().As<IMyService>().SingleInstance();
 

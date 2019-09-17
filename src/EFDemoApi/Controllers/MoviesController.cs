@@ -1,6 +1,9 @@
-﻿using System;
+﻿using EFDemo.Data;
+using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Http;
 
@@ -9,17 +12,19 @@ namespace EFDemoApi.Controllers
     [RoutePrefix("api/movies")]
     public class MoviesController : ApiController
     {
-        private readonly IMyService _myService;
+        private readonly MoviesDbContext _moviesDbContext;
 
-        public MoviesController(IMyService myService)
+        public MoviesController(MoviesDbContext moviesDbContext)
         {
-            this._myService = myService ?? throw new ArgumentNullException(nameof(myService));
+            _moviesDbContext = moviesDbContext ?? throw new ArgumentNullException(nameof(moviesDbContext));
         }
 
         [HttpGet]
-        public IHttpActionResult Get()
+        public async Task<IHttpActionResult> Get()
         {
-            return Ok(_myService.GetValue());
+            var movies = await _moviesDbContext.Movies.ToListAsync();
+
+            return Ok(movies);
         }
     }
 }
