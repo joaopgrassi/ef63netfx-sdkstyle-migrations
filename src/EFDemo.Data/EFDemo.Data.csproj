@@ -1,34 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  
+
   <PropertyGroup>
-    <OutputType>Library</OutputType>
     <TargetFramework>net472</TargetFramework>
   </PropertyGroup>
-  
+
   <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
-  
+
   <ItemGroup>
-    <PackageReference Include="EntityFramework" Version="6.3.0-rc1-19458-04" />
+    <PackageReference Include="EntityFramework" Version="6.3.0" />
     <PackageReference Include="Microsoft.CSharp" Version="4.*" />
   </ItemGroup>
 
-  <!-- Uncomment the ItemGroup below in order to be able to run Update-Database -->
-  
-  <!--<ItemGroup>
-    <EmbeddedResource Update="Migrations\201909170903584_Init.resx">
-      <DependentUpon>201909170903584_Init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Migrations\201909170929315_ReleaseYearField.resx">
-      <DependentUpon>201909170929315_ReleaseYearField.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Migrations\201909170937318_RatingField.resx">
-      <DependentUpon>201909170937318_RatingField.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Update="Migrations\201909170951021_LengthField.resx">
-      <DependentUpon>201909170951021_LengthField.cs</DependentUpon>
-    </EmbeddedResource>
-  </ItemGroup>-->
-  
+  <!-- Bug with the SDK for .NET Framework projects. The resx migrations are not included
+  See: https://github.com/aspnet/EntityFramework6/issues/1258#issuecomment-531355034 -->
+  <PropertyGroup>
+    <EmbeddedResourceUseDependentUponConvention>true</EmbeddedResourceUseDependentUponConvention>
+  </PropertyGroup>
+
 </Project>
